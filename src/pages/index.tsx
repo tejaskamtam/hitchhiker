@@ -1,7 +1,38 @@
-import { NextPage } from "next";
-import React from "react";
+import styles from "@/styles/Home.module.css";
+import { Inter } from "next/font/google";
+import Login from "../components/Login";
+import { useState } from "react";
+const inter = Inter({ subsets: ["latin"] });
 
-const HomePage: NextPage = () => {
+export default function Home() {
+  let history = [];
+  const [prompts, setPrompts] = useState([]);
+  // chat with AI
+  async function onSubmit() {
+    const user_prompt = document.getElementById("user-input").value;
+    console.log(user_prompt);
+    history = [...prompts];
+    history.push({ role: "user", content: user_prompt });
+
+    const response = await fetch("./api/openai", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ prompt: user_prompt.toString(), mem: history }),
+    });
+    // of return type - {response: {role:"", content:""}}
+    const res = await response.json();
+    history.push(res.response);
+
+    if (history) {
+      setPrompts([...history]);
+    }
+    setDoc(doc(db, "users", auth.uid), { prompts: history }, { merge: true });
+
+    console.log(prompts);
+  }
+
   return (
     <div className="container">
       <div className="grid place-content-center">
@@ -9,8 +40,10 @@ const HomePage: NextPage = () => {
           <h1 className="text-4xl my-8">HITCH HIKE YOUR TRIP PLANNING</h1>
         </div>
       </div>
+      <input type="text" id="user-input" />
+      <button id="submit-button" onClick={onSubmit}>
+        Submit
+      </button>
     </div>
   );
-};
-
-export default HomePage;
+}
