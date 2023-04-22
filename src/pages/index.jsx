@@ -23,7 +23,7 @@ export default function Home() {
           <div className={styles.landing_container}>
             <h1>Hitch Hike</h1>
             <h2>on our epic journeys</h2>
-            <Link href="/Login">Get Started</Link>
+            <Link href="/login">Get Started</Link>
           </div>
         </PopinLeft>
       ) : (
