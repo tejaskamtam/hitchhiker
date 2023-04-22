@@ -1,7 +1,12 @@
 import React from 'react';
 import login_styles from '../styles/Login.module.css';
 import { initFirebase } from '../components/firebase';
-import { GoogleAuthProvider, getAuth, signInWithRedirect } from 'firebase/auth';
+import {
+  GoogleAuthProvider,
+  getAuth,
+  getRedirectResult,
+  signInWithRedirect,
+} from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
@@ -20,12 +25,14 @@ const LoginPage = () => {
     router.push('/');
   }
   const SignIn = async () => {
+    console.log(auth, provider);
     const result = await signInWithRedirect(auth, provider);
     console.log(result);
+    const userCred = await getRedirectResult(auth);
+    console.log(userCred);
   };
   return (
-    <PopinBottom
-    >
+    <PopinBottom>
       <div className={login_styles.container}>
         <form className={login_styles.login_form}>
           <h1 className={login_styles.login_title}>Login</h1>

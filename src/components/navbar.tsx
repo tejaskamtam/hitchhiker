@@ -1,17 +1,17 @@
 import React from 'react';
 import styles from '../styles/Home.module.css';
 import Link from 'next/link';
-import {getAuth} from 'firebase/auth';
+import { getAuth } from 'firebase/auth';
 import { signOut } from 'firebase/auth';
-import {useRouter} from "next/router";
+import { useRouter } from 'next/router';
 
 const Navbar = () => {
   const auth = getAuth();
-  const router = useRouter() ;
-  const SignOut = async() => {
-    router.push("/Login");
+  const router = useRouter();
+  const SignOut = async () => {
     signOut(auth);
-    };
+    router.push('/Login');
+  };
   return (
     <nav className={styles.navbar}>
       <Link href="/" className={styles.navbar_logo_container}>
