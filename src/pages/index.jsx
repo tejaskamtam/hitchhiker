@@ -6,6 +6,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   let history = [];
+  //TODO: get prompts from firebase and update history
   const [prompts, setPrompts] = useState([]);
   // chat with AI
   async function onSubmit() {
@@ -16,6 +17,7 @@ export default function Home() {
 
     const response = await fetch("./api/openai", {
       method: "POST",
+
       headers: {
         "Content-Type": "application/json",
       },
@@ -28,7 +30,7 @@ export default function Home() {
     if (history) {
       setPrompts([...history]);
     }
-    setDoc(doc(db, "users", auth.uid), { prompts: history }, { merge: true });
+    //setDoc(doc(db, "users", auth.uid), { prompts: history }, { merge: true });
 
     console.log(prompts);
   }
