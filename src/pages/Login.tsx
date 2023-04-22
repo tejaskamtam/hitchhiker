@@ -1,16 +1,16 @@
-import React from 'react';
-import login_styles from '../styles/Login.module.css';
-import { initFirebase } from '../components/firebase';
 import {
   GoogleAuthProvider,
   getAuth,
   getRedirectResult,
   signInWithRedirect,
-} from 'firebase/auth';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
-import PopinBottom from '../components/PopinBottom';
+} from "firebase/auth";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import React from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import PopinBottom from "../components/PopinBottom";
+import { initFirebase } from "../components/firebase";
+import login_styles from "../styles/Login.module.css";
 
 const LoginPage = () => {
   const app = initFirebase();
@@ -22,7 +22,7 @@ const LoginPage = () => {
     return <div></div>;
   }
   if (user) {
-    router.push('/');
+    router.push("/");
   }
   const SignIn = async () => {
     console.log(auth, provider);
@@ -35,23 +35,21 @@ const LoginPage = () => {
     <PopinBottom>
       <div className={login_styles.container}>
         <form className={login_styles.login_form}>
-          <h1 className={login_styles.login_title}>Login</h1>
+          <h1 className={login_styles.login_title}>Login or Sign Up</h1>
           <div>
             <label htmlFor="">Email:</label>
             <input type="email" id="email" />
             <label htmlFor="">Password:</label>
             <input type="password" id="password" />
+            <button className={login_styles.login_button} onClick={SignIn}>
+              Submit
+            </button>
           </div>
-          <button className={login_styles.login_button} onClick={SignIn}>
-            Login In
-          </button>
+          - or -
           <button className={login_styles.google_oauth} onClick={SignIn}>
             <img src="google.png" alt="google" />
             <p>Login in with Google</p>
           </button>
-          <p className={login_styles.sign_up_text}>
-            don't have an account? <Link href="/signup">sign up</Link>
-          </p>
         </form>
       </div>
     </PopinBottom>

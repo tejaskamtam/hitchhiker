@@ -11,7 +11,7 @@ const Navbar = () => {
   const router = useRouter();
   const SignOut = async () => {
     signOut(auth);
-    router.push('/Login');
+    router.push('/login');
   };
   return (
     <nav className={styles.navbar}>
@@ -20,7 +20,7 @@ const Navbar = () => {
         <p className={styles.navbar_logo_text}>HitchHiker</p>
       </Link>
       <div className={styles.navbar_tabs}>
-        <Link href="/Login" className={styles.navbar_tab}>
+        <Link href="/login" className={styles.navbar_tab}>
           Login
         </Link>
         <Link href="/about" className={styles.navbar_tab}>

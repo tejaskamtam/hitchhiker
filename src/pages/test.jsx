@@ -1,7 +1,11 @@
-import styles from '@/styles/Home.module.css';
-import { Inter } from 'next/font/google';
-import { useState } from 'react';
-const inter = Inter({ subsets: ['latin'] });
+import styles from "@/styles/Home.module.css";
+import Box from "@mui/material/Box";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import { Inter } from "next/font/google";
+import { useState } from "react";
+const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   let history = [];
@@ -9,17 +13,17 @@ export default function Home() {
   const [prompts, setPrompts] = useState([]);
   // chat with AI
   async function onSubmit() {
-    const user_prompt = document.getElementById('user-input').value;
-    document.getElementById('user-input').value = '';
+    const user_prompt = document.getElementById("user-input").value;
+    document.getElementById("user-input").value = "";
     console.log(user_prompt);
     history = [...prompts];
-    history.push({ role: 'user', content: user_prompt });
+    history.push({ role: "user", content: user_prompt });
 
-    const response = await fetch('./api/openai', {
-      method: 'POST',
+    const response = await fetch("./api/openai", {
+      method: "POST",
 
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ prompt: user_prompt.toString(), mem: history }),
     });
@@ -35,16 +39,24 @@ export default function Home() {
   }
 
   return (
-    <div className="container">
-      <div className="grid place-content-center">
-        <div className="flex flex-col items-center gap-4">
-          <h1 className="text-4xl my-8">HITCH HIKE YOUR TRIP PLANNING</h1>
-        </div>
+    <>
+      <div class="container">
+        {/* test OpenAI api */}
+        <input type="text" id="user-input" />
+        <button id="submit-button" onClick={onSubmit}>
+          Submit
+        </button>
+        {/* test MUI login */}
+
+          <FormControl>
+            <InputLabel htmlFor="component-outlined">Name</InputLabel>
+            <OutlinedInput
+              id="component-outlined"
+              defaultValue="Composed TextField"
+              label="Name"
+            />
+          </FormControl>
       </div>
-      <input type="text" id="user-input" />
-      <button id="submit-button" onClick={onSubmit}>
-        Submit
-      </button>
-    </div>
+    </>
   );
 }

@@ -49,6 +49,7 @@
   justify-content: center;
   align-items: center;
   padding: 10px;
+  margin-top: 15px;
   gap: 10px;
 
   width: 100%;
@@ -88,10 +89,10 @@
 }
 
 .sign_up_text a {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
-.login_form input{
+.login_form input {
   height: 25px;
   border: none;
   border-radius: 30px;
