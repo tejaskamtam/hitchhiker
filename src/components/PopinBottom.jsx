@@ -10,6 +10,7 @@ const Animate = ({ children }) => (
       stiffness: 260,
       damping: 20,
     }}
+    style={{ flex: 1 }}
   >
     {children}
   </motion.div>

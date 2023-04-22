@@ -21,6 +21,7 @@ const LoginPage = () => {
   }
   const SignIn = async () => {
     const result = await signInWithRedirect(auth, provider);
+    console.log(result);
   };
   return (
     <PopinBottom
