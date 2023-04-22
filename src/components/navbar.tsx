@@ -3,10 +3,13 @@ import styles from '../styles/Home.module.css';
 import Link from 'next/link';
 import {getAuth} from 'firebase/auth';
 import { signOut } from 'firebase/auth';
+import {useRouter} from "next/router";
 
 const Navbar = () => {
   const auth = getAuth();
+  const router = useRouter() ;
   const SignOut = async() => {
+    router.push("/Login");
     signOut(auth);
     };
   return (
