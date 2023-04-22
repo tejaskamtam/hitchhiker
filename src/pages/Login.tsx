@@ -14,11 +14,10 @@ const LoginPage = () => {
   const [user, loading] = useAuthState(auth);
   const router = useRouter();
   if (loading) {
-    return <div>Loading...</div>;
+    return <div></div>;
   }
   if (user) {
     router.push('/');
-    return <div>Let's plan a trip {user.displayName}</div>;
   }
   const SignIn = async () => {
     const result = await signInWithRedirect(auth, provider);
