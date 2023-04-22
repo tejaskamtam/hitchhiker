@@ -46,16 +46,6 @@ export default function Home() {
         <button id="submit-button" onClick={onSubmit}>
           Submit
         </button>
-        {/* test MUI login */}
-
-          <FormControl>
-            <InputLabel htmlFor="component-outlined">Name</InputLabel>
-            <OutlinedInput
-              id="component-outlined"
-              defaultValue="Composed TextField"
-              label="Name"
-            />
-          </FormControl>
       </div>
     </>
   );
