@@ -4,9 +4,10 @@ import Link from 'next/link';
 import { getAuth } from 'firebase/auth';
 import { signOut } from 'firebase/auth';
 import { useRouter } from 'next/router';
+import { app } from './firebase';
 
 const Navbar = () => {
-  const auth = getAuth();
+  const auth = getAuth(app);
   const router = useRouter();
   const SignOut = async () => {
     signOut(auth);
