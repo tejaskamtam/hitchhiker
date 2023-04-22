@@ -1,37 +1,50 @@
-import React from "react";
-import "../styles/Login.module.css";
-import Login_module from "../styles/Login.module.css";
-import { initFirebase } from "../components/firebase";
-import { GoogleAuthProvider, getAuth, signInWithRedirect } from "firebase/auth";
-import {useAuthState} from "react-firebase-hooks/auth";
-import {useRouter} from "next/router";
+import React from 'react';
+import login_styles from '../styles/Login.module.css';
+import { initFirebase } from '../components/firebase';
+import { GoogleAuthProvider, getAuth, signInWithRedirect } from 'firebase/auth';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 const LoginPage = () => {
   const app = initFirebase();
   const provider = new GoogleAuthProvider();
   const auth = getAuth();
   const [user, loading] = useAuthState(auth);
-  const router = useRouter() ;
-  if(loading){
+  const router = useRouter();
+  if (loading) {
     return <div>Loading...</div>;
   }
-  if(user){
-    router.push("/");
-    return <div>Let's plan a trip {user.displayName}</div>
+  if (user) {
+    router.push('/');
+    return <div>Let's plan a trip {user.displayName}</div>;
   }
-  const SignIn = async() => {
+  const SignIn = async () => {
     const result = await signInWithRedirect(auth, provider);
   };
-  return(
-    <div className="text-center flex flex-col gap-4 items-center">
-      <div>
-        Please Log In or Sign Up
-      </div>
-      <button onClick={SignIn}>
-        <div className="bg-blue-600 text-white rounded-md p-2 w-48"> Sign In</div>
-      </button>
+  return (
+    <div className={login_styles.container}>
+      <form className={login_styles.login_form}>
+        <h1 className={login_styles.login_title}>Login</h1>
+        <div>
+          <label htmlFor="">Email:</label>
+          <input type="email" id="email" />
+          <label htmlFor="">Password:</label>
+          <input type="password" id="password"/>
+        </div>
+        <button className={login_styles.login_button} onClick={SignIn}>
+          Login In
+        </button>
+        <button className={login_styles.google_oauth} onClick={SignIn}>
+          <img src="google.png" alt="google" />
+          <p>Login in with Google</p>
+        </button>
+        <p className={login_styles.sign_up_text}>
+          don't have an account? <Link href="/signup">sign up</Link>
+        </p>
+      </form>
     </div>
-  ); 
-}
+  );
+};
 
 export default LoginPage;

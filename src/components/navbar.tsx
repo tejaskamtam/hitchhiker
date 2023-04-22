@@ -25,9 +25,9 @@ const Navbar = () => {
         <Link href="/about" className={styles.navbar_tab}>
           About
         </Link>
-        <button className={styles.navbar_tab} onClick={SignOut}>
+        <a className={styles.navbar_tab} onClick={SignOut}>
           SignOut
-        </button>
+        </a>
       </div>
     </nav>
   );
