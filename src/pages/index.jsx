@@ -11,6 +11,7 @@ export default function Home() {
   // chat with AI
   async function onSubmit() {
     const user_prompt = document.getElementById("user-input").value;
+    document.getElementById("user-input").value = "";
     console.log(user_prompt);
     history = [...prompts];
     history.push({ role: "user", content: user_prompt });
@@ -31,7 +32,6 @@ export default function Home() {
       setPrompts([...history]);
     }
     //setDoc(doc(db, "users", auth.uid), { prompts: history }, { merge: true });
-
     console.log(prompts);
   }
 
@@ -42,7 +42,7 @@ export default function Home() {
           <h1 className="text-4xl my-8">HITCH HIKE YOUR TRIP PLANNING</h1>
         </div>
       </div>
-      <input type="text" id="user-input" />
+      <input type="text" id="user-input"/>
       <button id="submit-button" onClick={onSubmit}>
         Submit
       </button>
