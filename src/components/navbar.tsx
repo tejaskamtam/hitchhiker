@@ -11,7 +11,6 @@ const Navbar = () => {
   const router = useRouter();
   const SignOut = async () => {
     signOut(auth);
-    router.push('/login');
   };
   return (
     <nav className={styles.navbar}>

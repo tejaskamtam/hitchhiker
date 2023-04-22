@@ -25,11 +25,11 @@ const LoginPage = () => {
     router.push("/");
   }
   const SignIn = async () => {
-    console.log(auth, provider);
+    //console.log(auth, provider);
     const result = await signInWithRedirect(auth, provider);
-    console.log(result);
-    const userCred = await getRedirectResult(auth);
-    console.log(userCred);
+    //console.log(result);
+    //const userCred = await getRedirectResult(auth);
+    //console.log(userCred);
   };
   return (
     <PopinBottom>
