@@ -90,20 +90,22 @@
   justify-content: center;
   align-items: center;
   padding: 50px;
-  gap: 10px;
+  gap: 20px;
 
   height: 100%;
   width: 50%;
   left: 0px;
   top: 100px;
 
-  background: linear-gradient(
+  color: #343843;
+
+  /* background: linear-gradient(
     155deg,
     rgba(70, 99, 95, 0.9) 2.76%,
     rgba(0, 0, 0, 0.9) 99.23%
   );
   box-shadow: 21px 20px 10px rgba(0, 0, 0, 0.5);
-  border-radius: 0px 65px 65px 0px;
+  border-radius: 0px 65px 65px 0px; */
 }
 
 .landing_container h1 {
@@ -112,11 +114,10 @@
   font-size: 96px;
   line-height: 120px;
   /* identical to box height */
+  text-shadow: 0px 10px 10px rgba(0, 0, 0, 0.5);
 
   display: flex;
   align-items: flex-end;
-
-  color: #fffcea;
 
   flex: none;
   order: 0;
@@ -130,9 +131,7 @@
   line-height: 60px;
   /* identical to box height */
 
-  color: #fffcea;
-
-  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  text-shadow: 0px 10px 10px rgba(0, 0, 0, 0.5);
 
   /* Inside auto layout */
 
@@ -146,11 +145,10 @@
   padding: 10px 25px;
   gap: 10px;
 
-  width: 255px;
-  height: 65px;
-
   background: #d5deaf;
   border-radius: 20px;
+  border: none;
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.5);
 
   /* Inside auto layout */
 
