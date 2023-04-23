@@ -1,24 +1,275 @@
-.dashboard {
-  width: 80%;
-  height: 100%;
 
-  margin: auto;
+
+
+.dashboard {
+  /* Auto layout */
+
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  background: linear-gradient(
-    155deg,
-    rgba(70, 99, 95, 0.9) 2.76%,
-    rgba(0, 0, 0, 0.9) 99.23%
-  );
-  box-shadow: 21px 20px 10px rgba(0, 0, 0, 0.5);
-  border-radius: 30px 30px 0 0;
-  padding: 30px 30px;
+  align-items: center;
+  padding: 40px 10px;
+  gap: 28px;
 
-  color: #343843;
-  color: #d5deaf;
+  width: 678px;
+  height: 600px;
+
+  background: linear-gradient(156.45deg, rgba(246, 165, 109, 0.9) 0%, rgba(52, 56, 67, 0.9) 101.9%);
+  box-shadow: 0px 16px 10px rgba(0, 0, 0, 0.25);
+  border-radius: 65px;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 1;
+  flex-grow: 0;
 }
 
 .dashboard h1 {
-  text-align: center;
+line-height: 45px;
+/* identical to box height */
+
+display: flex;
+align-items: flex-end;
+
+color: #FFFCEA;
+
+text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+
 }
+.newbg {
+  position: absolute;
+  background: url(../../public/background2.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+  width: 100%;
+  overflow-y: hidden;
+  height: 100%;
+
+}
+
+.dashboard_wrapper {
+  background: url(../../public/background2.jpg) no-repeat center center fixed;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 10px 10px 30px 10px;
+  gap: auto;
+
+  width: 100%;
+  height: 100%;
+
+}
+
+.smallmenu {
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0px;
+  gap: 20px;
+
+  width: 264px;
+  height: 150px;
+
+  background: linear-gradient(256.1deg, rgba(85, 190, 176, 0.85) 3%, #343843 97.96%);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 65px;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.smallmenu_item {
+  /* Auto layout */
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  gap: 10px;
+
+  width: 10em;
+  height: 45px;
+
+  background: #A8D8D1;
+  border-radius: 15px;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.dashboard_row_table{
+
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 0px 0px;
+gap: 5px;
+
+width: 534px;
+height: 577px;
+
+
+/* Inside auto layout */
+
+flex: none;
+order: 1;
+flex-grow: 0;
+}
+
+.dashboard_row_item{
+
+  color : #FFFCEA;
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 0px;
+gap: 20px;
+
+width: 534px;
+height: 67px;
+
+
+/* Inside auto layout */
+
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+}
+
+.text_and_form{
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0px;
+  gap: 5px;
+
+  height: 67px;
+
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.tiny_form{
+  width: 64px;
+  height: 32px;
+
+  background: #D9D9D9;
+  border-radius: 16px;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+
+  padding-left: 10px;
+}
+
+.small_form{
+  width: 156px;
+  height: 32px;
+
+  background: #D9D9D9;
+  border-radius: 16px;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+
+  padding-left: 10px;
+}
+.small_form:disabled {
+  background: #D9D9D9;
+  border-radius: 16px;
+  opacity: 0.5;
+}
+
+
+.large_form{
+  width: 356px;
+  height: 32px;
+
+  background: #D9D9D9;
+  border-radius: 16px;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+
+  padding-left: 10px;
+}
+
+.large_form:disabled {
+  background: #D9D9D9;
+  border-radius: 16px;
+  opacity: 0.5;
+}
+
+
+.long_slider{
+  -webkit-autofil: orange;
+  width: 356px;
+  height: 32px;
+
+  background: #D9D9D9;
+  border-radius: 16px;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+
+}
+
+.generate_button{
+    /* Auto layout */
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+  
+    width: 10em;
+    height: 45px;
+  
+    background: #F2BE9A;
+    border-radius: 15px;
+  
+    /* Inside auto layout */
+  
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+
