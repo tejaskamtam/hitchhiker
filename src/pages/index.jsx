@@ -28,7 +28,7 @@ export default function Home() {
     if (user) {
       const q = query(
         collection(db, 'trips'),
-        where('user', '==', 'tejaskamtam2003@gmail.com')
+        where('user', '==', user.email)
       );
       getDocs(q).then((docs) => {
         let ids = [];
@@ -48,7 +48,7 @@ export default function Home() {
         <PopinLeft styles={styles.container}>
           <div className={styles.landing_container}>
             <h1>Hitch Hike</h1>
-            <h2>on our epic journeys</h2>
+            <h2>our epic journeys</h2>
             <Link href="/login">Get Started</Link>
           </div>
         </PopinLeft>
