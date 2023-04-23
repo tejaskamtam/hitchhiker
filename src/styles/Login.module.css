@@ -81,11 +81,23 @@
 }
 
 .sign_up_text {
-  color: #d5deaf;
 
-  flex: none;
-  order: 3;
-  flex-grow: 0;
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 25px;
+/* identical to box height */
+
+display: flex;
+align-items: flex-end;
+
+color: #D5DEAF;
+
+
+/* Inside auto layout */
+
+flex: none;
+flex-grow: 0;
 }
 
 .sign_up_text a {

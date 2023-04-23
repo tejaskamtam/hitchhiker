@@ -64,24 +64,24 @@ import {
         <div className={login_styles.container}>
           <form className={login_styles.login_form}>
             <h1 className={login_styles.login_title}>Sign Up</h1>
-            <div>
-          <h2>
-          <Link href="/login">
-              Login Instead
-          </Link>
-          </h2>
-          </div>
+            <div></div>
             <div>
               <label htmlFor="">Email:</label>
               <input type="email" id="email" />
               <label htmlFor="">Password:</label>
               <input type="password" id="password" />
-              <button className={login_styles.login_button} onClick={Create_Email}>
+              <button
+                className={login_styles.login_button}
+                onClick={Create_Email}
+              >
                 Submit
               </button>
             </div>
-            - or -
-            <button className={login_styles.google_oauth} onClick={SignIn_G_Auth}>
+            <Link href="/login">Already have an account? Login</Link>- or -
+            <button
+              className={login_styles.google_oauth}
+              onClick={SignIn_G_Auth}
+            >
               <img src="google.png" alt="google" />
               <p>Login in with Google</p>
             </button>

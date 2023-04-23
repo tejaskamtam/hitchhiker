@@ -66,7 +66,7 @@ const Travel = () => {
           </div>
         </div>
         <div className={styles.map_container}>
-          <Map></Map>
+          <Map places={places}/>
         </div>
       </div>
     </motion.div>
