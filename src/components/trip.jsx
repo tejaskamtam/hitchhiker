@@ -1,9 +1,14 @@
 import React from 'react';
 import styles from '../styles/Home.module.css';
+import { useRouter } from 'next/router';
 
-const Trip = ({ name, image, date }) => {
+const Trip = ({ id, name, image, date }) => {
+    const router = useRouter();
+
   return (
-    <div className={styles.dashboard_trip}>
+    <div className={styles.dashboard_trip} onClick={() => {
+        router.push(`./trips/${id}`);
+    }}>
       <div className={styles.trip_image_container}>
         <img src={image} alt="" />
       </div>

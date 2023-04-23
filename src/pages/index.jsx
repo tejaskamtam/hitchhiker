@@ -7,12 +7,38 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import PopinBottom from '../components/PopinBottom';
 import PopinLeft from '../components/PopinLeft';
 import Trip from '../components/trip';
+import { query, where, collection, getDocs } from 'firebase/firestore';
+import { initFirebase } from '../components/firebase';
+import { getFirestore } from 'firebase/firestore';
+import { useState, useEffect } from 'react';
 
 export default function Home() {
   const router = useRouter();
   const auth = getAuth();
   const [user, loading] = useAuthState(auth);
-  console.log(user);
+
+  // get dashboard trip ids
+  const [tripIDs, setTripIDs] = useState([]);
+  const app = initFirebase();
+  const db = getFirestore(app);
+
+  console.log(tripIDs);
+
+  useEffect(() => {
+    if (user) {
+      const q = query(
+        collection(db, 'trips'),
+        where('user', '==', 'tejaskamtam2003@gmail.com')
+      );
+      getDocs(q).then((docs) => {
+        let ids = [];
+        docs.forEach((doc) => {
+          ids.push(doc.id);
+        });
+        setTripIDs([...ids]);
+      });
+    }
+  }, [user]);
 
   if (loading) return <div></div>;
 
@@ -31,14 +57,21 @@ export default function Home() {
           <div className={styles.dashboard}>
             <h1>My Trips</h1>
             <div className={styles.dashboard_trips}>
-              <div className={styles.dashboard_trip} onClick={() => {
-                router.push('/trips');
-              }}>
+              <div
+                className={styles.dashboard_trip}
+                onClick={() => {
+                  router.push('/trips');
+                }}
+              >
                 <div className={styles.add_trip_container}>
                   <img src="trip_add.png" alt="add trip" />
                 </div>
               </div>
-              <Trip name="trip 1" image="background.png" date="4/22/2023" />
+              {tripIDs.map((id, i) => {
+                return (
+                  <Trip key={id} name={`trip ${i+1}`} image="trip_image.png" id={id} />
+                );
+              })}
             </div>
           </div>
         </PopinBottom>
