@@ -88,12 +88,12 @@ const CreateTrip = () => {
             <div className={styles.dashboard_row_item}>
               <div className={styles.text_and_form}>
                 <p>start date</p>
-                <input type="date" id="start" name="trip-start" value="2021-01-01" min="2021-01-01" max="2021-12-31" className={styles.small_form} disabled={flexibility == "anytime"} onChange={handleStartDate}>
+                <input type="date" id="start" name="trip-start" className={styles.small_form} disabled={flexibility == "anytime"} onChange={handleStartDate}>
                 </input>
               </div>
               <div className={styles.text_and_form}>
                 <p>end date</p>
-                <input type="date" id="end" name="trip-end" value="2021-01-01" min="2021-01-01" max="2021-12-31" className={styles.small_form} disabled={flexibility == "anytime"} onChange={handleEndDate}>
+                <input type="date" id="end" name="trip-end" className={styles.small_form} disabled={flexibility == "anytime"} onChange={handleEndDate}>
                 </input>
               </div>
               <div className={styles.text_and_form}>
