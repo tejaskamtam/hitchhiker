@@ -1,6 +1,4 @@
-// 
-
-export const make_trip = async (user, start_date, days, start_location, end_location, num_travelers="1", budget="economy", transportation="any",tags="none") => {
+export const make_trip = async (pp, lp, ad, col, user, start_date, days, start_location, end_location, num_travelers="1", budget="economy", transportation="any",tags="none") => {
   let history = [];
   history.push({
     role: "user",
@@ -27,6 +25,7 @@ export const make_trip = async (user, start_date, days, start_location, end_loca
   });
   const res = await response.json();
   history.push(res.response);
+  console.log(res.response.content)
   let itinerary = plan_parse(res.response.content);
   // get location from OpenAI
   response = await fetch("../api/locs", {
