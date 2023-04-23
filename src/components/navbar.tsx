@@ -40,9 +40,6 @@ const Navbar = () => {
           <Link href="/login" className={styles.navbar_tab}>
             Login
           </Link>
-          <a className={styles.navbar_tab} onClick={SignOut}>
-            SignOut
-          </a>
         </div>
       </nav>
     );
