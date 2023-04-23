@@ -33,7 +33,7 @@ export default function Home() {
       getDocs(q).then((docs) => {
         let ids = [];
         docs.forEach((doc) => {
-          ids.push(doc.data());
+          ids.push({id: doc.id, ...doc.data()});
         });
         setTripIDs([...ids]);
       });
