@@ -31,7 +31,9 @@ export default function Home() {
           <div className={styles.dashboard}>
             <h1>My Trips</h1>
             <div className={styles.dashboard_trips}>
-              <div className={styles.dashboard_trip}>
+              <div className={styles.dashboard_trip} onClick={() => {
+                router.push('/trips');
+              }}>
                 <div className={styles.add_trip_container}>
                   <img src="trip_add.png" alt="add trip" />
                 </div>
