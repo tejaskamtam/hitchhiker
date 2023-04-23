@@ -12,25 +12,34 @@ import {
   import PopinBottom from "../components/PopinBottom";
   import { initFirebase } from "../components/firebase";
   import login_styles from "../styles/Login.module.css";
-  import {useEffect} from "react";
-  
+  import { collection, setDoc, addDoc, getDocs } from "firebase/firestore"; 
+  import { getFirestore } from "firebase/firestore";
+  import { users } from "../components/firebase";
+
   const LoginPage = () => {
     const app = initFirebase();
     const provider = new GoogleAuthProvider();
     const auth = getAuth();
     const [user, loading] = useAuthState(auth);
     const router = useRouter();
-  
-    
+    const db = getFirestore(app);
+
     if (loading) {
       return <div></div>;
     }
     if (user) {
+      /*const docRef = addDoc(collection(db, "username"), {
+        username: user.email,
+      });*/
       router.push("/");
     }
     const SignIn_G_Auth = async (e) => {
       e.preventDefault();
       const result = await signInWithRedirect(auth, provider);
+      router.reload();
+        const docRef = addDoc(collection(db, "username"), {
+        username: user.email,
+      });
       //console.log(result);
       //const userCred = await getRedirectResult(auth);
       //console.log(userCred);
@@ -39,11 +48,16 @@ import {
       e.preventDefault();
       const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
-      console.log(email, password);
+      //console.log(email, password);
         const result = createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential)=>{
           const user = userCredential;
-        });
+          //console.log(user);
+          //console.log(user.user.email);
+          const docRef = addDoc(collection(db, "username"), {
+            username: user.user.email,
+          });
+        });          
       };
     return (
       <PopinBottom>
@@ -78,5 +92,5 @@ import {
     
   };
   
-  export default LoginPage;
+export default LoginPage;
   
