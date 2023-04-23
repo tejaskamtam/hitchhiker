@@ -6,7 +6,6 @@ import Link from 'next/link';
 import { make_trip } from '../api/openai';
 import { getAuth } from 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { loc_parse, plan_parse } from "../api/parse";
 
 const CreateTrip = () => {
   const [isStartLocSurprise, setStartLocSurprise] = useState(true);
@@ -109,8 +108,8 @@ const CreateTrip = () => {
     }
     else{
     //calculate difference between start and end dates
-    var startListDates = startDates.split('-');
-    var endListDates = endDates.split('-');
+    var startListDates = startDates.toString().split("-");
+    var endListDates = endDates.toString().split("-");
     var year_diff = endListDates[0] - startListDates[0];
     var month_diff = endListDates[1] - startListDates[1];
     var day_diff = endListDates[2] - startListDates[2];
@@ -178,6 +177,8 @@ const CreateTrip = () => {
     var tags = [priv, sed];
     //log this out
     //console.log(startDates, days, outStartLoc, outEndLoc, travelers, out_budget, transportation, tags);
+    if(days > 14)
+    {days = 14}
     make_trip(user, startDates, days, outStartLoc, outEndLoc, travelers, out_budget, transportation, tags);
   }
 

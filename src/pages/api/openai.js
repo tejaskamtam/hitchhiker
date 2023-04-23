@@ -20,20 +20,16 @@ export const make_trip = async (user, start_date, days, start_location, end_loca
   });
   console.log(history);
   // get itinerary from OpenAI
-  let response = await fetch("../../pages/api/plan", {
+  let response = await fetch("../api/plan", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ mem: history }),
   });
-  console.log(response);
   const res = await response.json();
   history.push(res.response);
-  if (history) {
-    setPrompts([...history]);
-  }
   let itinerary = plan_parse(res.response.content);
   // get location from OpenAI
-  response = await fetch("../../pages/api/locs", {
+  response = await fetch("../api/locs", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ plan: res.response.content }),
