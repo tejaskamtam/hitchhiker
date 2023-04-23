@@ -33,7 +33,7 @@ export default function Home() {
       getDocs(q).then((docs) => {
         let ids = [];
         docs.forEach((doc) => {
-          ids.push(doc.id);
+          ids.push(doc.data());
         });
         setTripIDs([...ids]);
       });
@@ -69,7 +69,7 @@ export default function Home() {
               </div>
               {tripIDs.map((id, i) => {
                 return (
-                  <Trip key={id} name={`trip ${i+1}`} image="trip_image.png" id={id} />
+                  <Trip key={id} name={`start: ${id.start}`} image="trip_image.png" id={id.id} />
                 );
               })}
             </div>

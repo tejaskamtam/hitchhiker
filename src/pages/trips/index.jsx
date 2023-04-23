@@ -10,6 +10,7 @@ import styles from '../../styles/Trip.module.css';
 import { make_trip } from '../api/openai';
 import { loc_parse, plan_parse } from '../api/parse';
 import { Router, useRouter } from 'next/router';
+import { CircularProgress } from '@mui/material';
 
 const CreateTrip = () => {
   const [isStartLocSurprise, setStartLocSurprise] = useState(true);
@@ -27,6 +28,19 @@ const CreateTrip = () => {
   const [privacy, setPrivacy] = useState(5);
   const app = initFirebase();
   const db = getFirestore(app);
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  if (isLoading)
+    return (
+      <PopinBottom>
+        <div className={styles.progress_container}>
+          <h2>Please wait while we generate your journey ...</h2>
+
+          <CircularProgress color="inherit" />
+        </div>
+      </PopinBottom>
+    );
 
   const router = useRouter();
 
@@ -211,6 +225,9 @@ const CreateTrip = () => {
     `,
     });
     console.log(history);
+
+    setIsLoading(true);
+
     console.log('getting itinerary...');
     // get itinerary from OpenAI
     let response = await fetch('../api/plan', {
@@ -241,7 +258,7 @@ const CreateTrip = () => {
       locations: locations,
     });
 
-    router.push(`/trips/${doc_id}`);
+    router.push(`/trips/${doc_id.id}`);
     console.log(locations);
   };
 
