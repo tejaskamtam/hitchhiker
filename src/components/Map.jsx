@@ -1,24 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { Loader } from '@googlemaps/js-api-loader';
-import Box from '@mui/material/Box';
-import { Button, ButtonGroup, Container } from '@mui/material';
-
-let mapData;
-let currentType = '';
+import styles from "../styles/TripDetail.module.css";
 
 const Map = ({ dataType }) => {
   const [google, setGoogle] = useState(null);
   const [map, setMap] = useState(null);
-  const [lat, setLat] = useState(34.0689);
-  const [long, setLong] = useState(-118.4552);
-  const [heatmapData, setHeatMapData] = useState([]);
-  const liveData = useSelector((state) => state.trialData.data);
+
+  console.log(map);
+  console.log(google);
 
   useEffect(() => {
     const loader = new Loader({
-      apiKey: 'AIzaSyBNU6wqoSvC3BZ7C0nPwPJISmNhohZYLKI',
+      apiKey: process.env.NEXT_PUBLIC_MAPS_API_KEY,
       version: 'weekly',
-      libraries: ['places', 'visualization'],
+      libraries: ['places'],
     });
 
     const mapOptions = {
@@ -44,27 +39,7 @@ const Map = ({ dataType }) => {
     // getAllTrials();
   }, []);
 
-  function handleReset() {
-    let heatmap = new google.maps.visualization.HeatmapLayer({
-      data: mapData,
-    });
-    heatmap.setMap(map);
-    console.log(mapData);
-  }
-
-  return (
-    <Container sx={{ position: 'relative', width: '100%', height: '100%' }}>
-      <div id="map">Map</div>
-      <ButtonGroup
-        variant="contained"
-        aria-label="outlined primary button group"
-        sx={{ position: 'absolute', left: '30px', bottom: '10px' }}
-      >
-        <Button onClick={handleResize}>resize</Button>
-        <Button onClick={handleReset}>reset</Button>
-      </ButtonGroup>
-    </Container>
-  );
+  return <div id="map" className={styles.map}></div>;
 };
 
 export default Map;
