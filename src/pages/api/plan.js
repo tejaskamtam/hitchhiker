@@ -9,9 +9,11 @@ const openai = new OpenAIApi(configuration);
 
 
 export default async function (req, res) {
+
   const { mem } = req.body;
   const completion = await openai.createChatCompletion({
     model: 'gpt-3.5-turbo',
+    //max_tokens: 3500,
     messages: [
       {
         role: 'system',

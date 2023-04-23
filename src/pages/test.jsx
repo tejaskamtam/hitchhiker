@@ -10,6 +10,7 @@ import { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { initFirebase } from "../components/firebase";
 import { geoposition } from "./api/geo";
+import { make_trip } from "./api/openai";
 import { loc_parse, plan_parse } from "./api/parse";
 const inter = Inter({ subsets: ["latin"] });
 
@@ -38,7 +39,7 @@ export default function Home() {
     history.push({
       role: "user",
       content: `
-      Plan a detailed trip. 
+      Plan a detailed trip.
       Format: {Day: {Hour, Location}} json
       Preferences:
         start date: ${start_date}
@@ -81,9 +82,11 @@ export default function Home() {
     console.log(locations);
   }
 
-  // test geo api
+  test geo api
+
+  
   async function test_geo() {
-    const response = await geoposition("Rome, Italy")
+    const response = await geoposition("Rome, Italy");
     console.log(response);
   }
 
