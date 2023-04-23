@@ -9,18 +9,18 @@ const openai = new OpenAIApi(configuration);
 
 
 export default async function (req, res) {
-  const { prompt, mem } = req.body;
-  console.log(prompt);
+  const { days, loc, mem } = req.body;
   const completion = await openai.createChatCompletion({
     model: 'gpt-3.5-turbo',
+    temperature: 0.7,
     messages: [
       {
         role: 'system',
         content:
-          "You are a trip advisor. Users will enter details on dates and location, respond with a list of activities and events that follow the user's plan.",
+          'You are a travel agent. You will recommend actvities based on user input. Output with a detailed itinerary.',
       },
       ...mem,
-      { role: 'user', content: prompt },
+      { role: 'user', content: `Plan a ${days} day trip to ${loc} with a specific itinerary with specified time for each activity.` },
     ],
   });
 
@@ -28,3 +28,4 @@ export default async function (req, res) {
     .status(200)
     .json({ response: completion.data.choices[0].message });
 }
+

@@ -13,11 +13,11 @@ export default function Home() {
   const [prompts, setPrompts] = useState([]);
   // chat with AI
   async function onSubmit() {
-    const user_prompt = document.getElementById("user-input").value;
+    const user_prompt = document.getElementById("user-input").value.split(" ");
     document.getElementById("user-input").value = "";
     console.log(user_prompt);
     history = [...prompts];
-    history.push({ role: "user", content: user_prompt });
+    history.push({ role: "user", content: `Plan a ${user_prompt[0]} day trip to ${user_prompt[1]} with a specific itinerary.` });
 
     const response = await fetch("./api/openai", {
       method: "POST",
@@ -25,7 +25,7 @@ export default function Home() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ prompt: user_prompt.toString(), mem: history }),
+      body: JSON.stringify({ days: user_prompt[0], loc: user_prompt[1],mem: history }),
     });
     // of return type - {response: {role:"", content:""}}
     const res = await response.json();
@@ -42,6 +42,7 @@ export default function Home() {
     <>
       <div class="container">
         {/* test OpenAI api */}
+        <p>Enter in format: "DAYS" "LOCATION"</p>
         <input type="text" id="user-input" />
         <button id="submit-button" onClick={onSubmit}>
           Submit
