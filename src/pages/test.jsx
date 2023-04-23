@@ -3,9 +3,13 @@ import Box from "@mui/material/Box";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import OutlinedInput from "@mui/material/OutlinedInput";
+import { addDoc, collection, getFirestore } from "firebase/firestore";
 import { Inter } from "next/font/google";
 import { useState } from "react";
-import {plan_parse, loc_parse} from "./api/parse"
+import { initFirebase } from "../components/firebase";
+import { getAuth } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { loc_parse, plan_parse } from "./api/parse";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
@@ -19,8 +23,11 @@ export default function Home() {
   let end_location = "Paris, France";
   let budget = "luxury";
   let transportation = "any";
+  const app = initFirebase();
+  const db = getFirestore(app);
 
   const [prompts, setPrompts] = useState([]);
+  const [user, loading] = useAuthState(getAuth());
 
   async function onSubmit() {
     const user_prompt = document.getElementById("user-input").value.split(" ");
@@ -63,9 +70,13 @@ export default function Home() {
     });
     const res2 = await response.json();
     let locations = loc_parse(res2.response.content);
-
-    //setDoc(doc(db, "users", auth.uid), { prompts: history }, { merge: true });
     console.log(itinerary);
+    
+    const doc_id = addDoc(collection(db, "trips"), {
+      user: user.email,
+      trip: itinerary,
+      locations: locations,
+    });
     console.log(locations);
   }
 
