@@ -1,31 +1,34 @@
-import { style } from "@mui/system";
-import { getAuth } from "firebase/auth";
-import { addDoc, collection, getFirestore } from "firebase/firestore";
-import Link from "next/link";
-import React, { useEffect, useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import PopinBottom from "../../components/PopinBottom";
-import { initFirebase } from "../../components/firebase";
-import styles from "../../styles/Trip.module.css";
-import { make_trip } from "../api/openai";
-import { loc_parse, plan_parse } from "../api/parse";
+import { style } from '@mui/system';
+import { getAuth } from 'firebase/auth';
+import { addDoc, collection, getFirestore } from 'firebase/firestore';
+import Link from 'next/link';
+import React, { useEffect, useState } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import PopinBottom from '../../components/PopinBottom';
+import { initFirebase } from '../../components/firebase';
+import styles from '../../styles/Trip.module.css';
+import { make_trip } from '../api/openai';
+import { loc_parse, plan_parse } from '../api/parse';
+import { Router, useRouter } from 'next/router';
 
 const CreateTrip = () => {
   const [isStartLocSurprise, setStartLocSurprise] = useState(true);
   const [isEndLocSurprise, setEndLocSurprise] = useState(true);
   const [user, loading] = useAuthState(getAuth());
-  const [flexibility, setFlexibility] = useState("anytime");
+  const [flexibility, setFlexibility] = useState('anytime');
   const [startDates, setStartDates] = useState([]);
   const [endDates, setEndDates] = useState([]);
-  const [startLoc, setStartLoc] = useState("");
-  const [endLoc, setEndLoc] = useState("");
+  const [startLoc, setStartLoc] = useState('');
+  const [endLoc, setEndLoc] = useState('');
   const [travelers, setTravelers] = useState(1);
-  const [budget, setBudget] = useState("$");
-  const [transport, setTransport] = useState("any");
+  const [budget, setBudget] = useState('$');
+  const [transport, setTransport] = useState('any');
   const [sedentary, setSedentary] = useState(5);
   const [privacy, setPrivacy] = useState(5);
   const app = initFirebase();
   const db = getFirestore(app);
+
+  const router = useRouter();
 
   const handleStartLocSurprise = (e) => {
     setStartLocSurprise(e.target.checked);
@@ -50,7 +53,7 @@ const CreateTrip = () => {
   const handleTravelers = (e) => {
     //check that is number
     if (isNaN(e.target.value)) {
-      alert("Please enter a number");
+      alert('Please enter a number');
     } else {
       if (e.target.value < 1) {
         setTravelers(1);
@@ -77,102 +80,113 @@ const CreateTrip = () => {
   };
 
   const handleStartDate = (e) => {
-    if (e.target.value < endDates) {
-      setStartDates(e.target.value);
+    if (endDates[0]) {
+      if (e.target.value < endDates) {
+        setStartDates(e.target.value);
+      } else {
+        alert('Start date must be before end date');
+      }
     } else {
-      alert("Start date must be before end date");
+      setStartDates(e.target.value);
     }
   };
 
   const handleEndDate = (e) => {
-    if (e.target.value > startDates) {
-      setEndDates(e.target.value);
+    if (startDates[0]) {
+      if (e.target.value > startDates) {
+        setEndDates(e.target.value);
+      } else {
+        alert('End date must be after start date');
+      }
     } else {
-      alert("End date must be after start date");
+      setEndDates(e.target.value);
     }
   };
   const handleSubmit = async (e) => {
     var outStartLoc = startLoc;
     var outEndLoc = endLoc;
     if (isStartLocSurprise) {
-      outStartLoc = "anywhere";
+      outStartLoc = 'anywhere';
     }
     if (isEndLocSurprise) {
-      outEndLoc = "anywhere";
+      outEndLoc = 'anywhere';
     }
     var days = 0;
-    if (flexibility == "anytime") {
-      setStartDates("anytime");
+    if (flexibility == 'anytime') {
+      setStartDates('anytime');
       //then set random aount of dates between 4 and 12
       var numDates = Math.floor(Math.random() * 9) + 4;
     } else {
       //calculate difference between start and end dates
-      var startListDates = startDates.toString().split("-");
-      var endListDates = endDates.toString().split("-");
+      var startListDates = startDates.toString().split('-');
+      var endListDates = endDates.toString().split('-');
       var year_diff = endListDates[0] - startListDates[0];
       var month_diff = endListDates[1] - startListDates[1];
       var day_diff = endListDates[2] - startListDates[2];
       days = year_diff * 365 + month_diff * 30 + day_diff;
+      console.log(startDates, endDates);
+      console.log(year_diff, month_diff, day_diff);
+      console.log(days);
     }
     //make trip
-    var priv = "private";
+    var priv = 'private';
     switch (privacy) {
       case 5:
-        priv = "very public";
+        priv = 'very public';
         break;
       case 4:
-        priv = "public";
+        priv = 'public';
         break;
       case 3:
-        priv = "semi-public";
+        priv = 'semi-public';
         break;
       case 2:
-        priv = "semi-private";
+        priv = 'semi-private';
         break;
       case 1:
-        priv = "private";
+        priv = 'private';
         break;
       case 0:
-        priv = "very private";
+        priv = 'very private';
         break;
     }
-    var sed = "sedentary";
+    var sed = 'sedentary';
     switch (sedentary) {
       case 5:
-        sed = "very active";
+        sed = 'very active';
         break;
       case 4:
-        sed = "active";
+        sed = 'active';
         break;
       case 3:
-        sed = "semi-active";
+        sed = 'semi-active';
         break;
       case 2:
-        sed = "semi-sedentary";
+        sed = 'semi-sedentary';
         break;
       case 1:
-        sed = "sedentary";
+        sed = 'sedentary';
         break;
       case 0:
-        sed = "very sedentary";
+        sed = 'very sedentary';
         break;
     }
-    var out_budget = "economic";
+    var out_budget = 'economic';
     switch (budget) {
-      case "$":
-        out_budget = "economic";
+      case '$':
+        out_budget = 'economic';
         break;
-      case "$$":
-        out_budget = "moderate";
+      case '$$':
+        out_budget = 'moderate';
         break;
-      case "$$$":
-        out_budget = "expensive";
+      case '$$$':
+        out_budget = 'expensive';
         break;
-      case "$$$$":
-        out_budget = "luxurious";
+      case '$$$$':
+        out_budget = 'luxurious';
         break;
     }
-    var transportation = transport + " transportation";
+    var transportation = transport + ' transportation';
     var tags = [priv, sed];
     //log this out
     //console.log(startDates, days, outStartLoc, outEndLoc, travelers, out_budget, transportation, tags);
@@ -181,7 +195,7 @@ const CreateTrip = () => {
     }
     let history = [];
     history.push({
-      role: "user",
+      role: 'user',
       content: `
     Plan a detailed trip. 
     Format: {Day: {Hour, Location}} json
@@ -197,10 +211,11 @@ const CreateTrip = () => {
     `,
     });
     console.log(history);
+    console.log('getting itinerary...');
     // get itinerary from OpenAI
-    let response = await fetch("../api/plan", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+    let response = await fetch('../api/plan', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ mem: history }),
     });
     const res = await response.json();
@@ -208,22 +223,25 @@ const CreateTrip = () => {
     console.log(res.response.content);
     let itinerary = plan_parse(res.response.content);
     // get location from OpenAI
-    response = await fetch("../api/locs", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+    console.log('getting locations....');
+    response = await fetch('../api/locs', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ plan: res.response.content }),
     });
     const res2 = await response.json();
     let locations = loc_parse(res2.response.content);
     console.log(itinerary);
 
-    const doc_id = addDoc(collection(db, "trips"), {
+    const doc_id = await addDoc(collection(db, 'trips'), {
       user: user.email,
       start: outStartLoc,
       end: outEndLoc,
       trip: itinerary,
       locations: locations,
     });
+
+    router.push(`/trips/${doc_id}`);
     console.log(locations);
   };
 
@@ -252,7 +270,7 @@ const CreateTrip = () => {
                     id="start"
                     name="trip-start"
                     className={styles.small_form}
-                    disabled={flexibility == "anytime"}
+                    disabled={flexibility == 'anytime'}
                     onChange={handleStartDate}
                   ></input>
                 </div>
@@ -263,7 +281,7 @@ const CreateTrip = () => {
                     id="end"
                     name="trip-end"
                     className={styles.small_form}
-                    disabled={flexibility == "anytime"}
+                    disabled={flexibility == 'anytime'}
                     onChange={handleEndDate}
                   ></input>
                 </div>
