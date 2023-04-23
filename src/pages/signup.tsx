@@ -28,7 +28,8 @@ import {
     if (user) {
       router.push("/");
     }
-    const SignIn_G_Auth = async () => {
+    const SignIn_G_Auth = async (e) => {
+      e.preventDefault();
       const result = await signInWithRedirect(auth, provider);
       //console.log(result);
       //const userCred = await getRedirectResult(auth);
