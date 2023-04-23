@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Loader } from '@googlemaps/js-api-loader';
-import styles from "../styles/TripDetail.module.css";
+import styles from '../styles/TripDetail.module.css';
+import { geoposition } from '../pages/api/geo';
 
-const Map = ({ dataType }) => {
+const Map = ({ places }) => {
   const [google, setGoogle] = useState(null);
   const [map, setMap] = useState(null);
-
-  console.log(map);
-  console.log(google);
 
   useEffect(() => {
     const loader = new Loader({
@@ -18,8 +16,8 @@ const Map = ({ dataType }) => {
 
     const mapOptions = {
       center: {
-        lat: 39.7955,
-        lng: -86.2401,
+        lat: 0,
+        lng: 0,
       },
       zoom: 15,
       disableDefaultUI: true,
@@ -38,6 +36,27 @@ const Map = ({ dataType }) => {
       });
     // getAllTrials();
   }, []);
+
+  useEffect(() => {
+    if (map && google) {
+      let bounds = new google.maps.LatLngBounds();
+
+      places.forEach(async (place) => {
+        const latLong = await geoposition(place);
+        const myLatLong = { lat: latLong[1], lng: latLong[0] };
+
+        let marker = new google.maps.Marker({
+          position: myLatLong,
+          title: place,
+        });
+
+        bounds.extend(myLatLong);
+        marker.setMap(map);
+      });
+
+      map.fitBounds(bounds);
+    }
+  }, [map, google]);
 
   return <div id="map" className={styles.map}></div>;
 };
