@@ -210,8 +210,7 @@
 
 .dashboard {
   width: 80%;
-  min-height: 90%;
-  height: min-content;
+  height: 100%;
 
   margin: auto;
   display: flex;
@@ -223,7 +222,7 @@
     rgba(0, 0, 0, 0.9) 99.23%
   );
   box-shadow: 21px 20px 10px rgba(0, 0, 0, 0.5);
-  border-radius: 30px;
+  border-radius: 30px 30px 0 0;
   padding: 30px 30px;
 
   color: #343843;
@@ -251,6 +250,14 @@
 
   border: #d5deaf 2px solid;
   color: #d5deaf;
+
+  transition: transform ease-in-out 300ms;
+  cursor: pointer;
+}
+
+.dashboard_trip:hover {
+  transform: scale(1.1);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 }
 
 .trip_image_container {
@@ -261,9 +268,16 @@
 
 .trip_image_container img {
   height: 100%;
+  width: 100%;
 }
 
 .trip_text_container {
   height: 30%;
   padding: 10px;
+}
+
+.add_trip_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

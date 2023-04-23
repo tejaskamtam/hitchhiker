@@ -1,12 +1,12 @@
-import styles from "@/styles/Home.module.css";
-import { getAuth } from "firebase/auth";
-import { Inter } from "next/font/google";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { useAuthState } from "react-firebase-hooks/auth";
-import PopinBottom from "../components/PopinBottom";
-import PopinLeft from "../components/PopinLeft";
-import Trip from "../components/trip";
+import styles from '@/styles/Home.module.css';
+import { getAuth } from 'firebase/auth';
+import { Inter } from 'next/font/google';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import PopinBottom from '../components/PopinBottom';
+import PopinLeft from '../components/PopinLeft';
+import Trip from '../components/trip';
 
 export default function Home() {
   const router = useRouter();
@@ -32,11 +32,9 @@ export default function Home() {
             <h1>My Trips</h1>
             <div className={styles.dashboard_trips}>
               <div className={styles.dashboard_trip}>
-                <div className={styles.trip_image_container}>
-                  <img src="add_trip.png" alt="add trip" />
+                <div className={styles.add_trip_container}>
+                  <img src="trip_add.png" alt="add trip" />
                 </div>
-                <p>New Trip</p>
-                <p>4/22/2023</p>
               </div>
               <Trip name="trip 1" image="background.png" date="4/22/2023" />
             </div>
