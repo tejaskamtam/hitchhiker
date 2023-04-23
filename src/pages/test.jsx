@@ -3,12 +3,13 @@ import Box from "@mui/material/Box";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import OutlinedInput from "@mui/material/OutlinedInput";
+import { getAuth } from "firebase/auth";
 import { addDoc, collection, getFirestore } from "firebase/firestore";
 import { Inter } from "next/font/google";
 import { useState } from "react";
-import { initFirebase } from "../components/firebase";
-import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { initFirebase } from "../components/firebase";
+import { geoposition } from "./api/geo";
 import { loc_parse, plan_parse } from "./api/parse";
 const inter = Inter({ subsets: ["latin"] });
 
@@ -71,13 +72,19 @@ export default function Home() {
     const res2 = await response.json();
     let locations = loc_parse(res2.response.content);
     console.log(itinerary);
-    
+
     const doc_id = addDoc(collection(db, "trips"), {
       user: user.email,
       trip: itinerary,
       locations: locations,
     });
     console.log(locations);
+  }
+
+  // test geo api
+  async function test_geo() {
+    const response = await geoposition("Rome, Italy")
+    console.log(response);
   }
 
   return (
@@ -88,6 +95,9 @@ export default function Home() {
         <input type="text" id="user-input" />
         <button id="submit-button" onClick={onSubmit}>
           Submit
+        </button>
+        <button id="submit-button" onClick={test_geo}>
+          Test GEO
         </button>
       </div>
     </>
