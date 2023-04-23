@@ -176,8 +176,8 @@ const CreateTrip = () => {
     var tags = [priv, sed];
     //log this out
     //console.log(startDates, days, outStartLoc, outEndLoc, travelers, out_budget, transportation, tags);
-    if (days > 14) {
-      days = 14;
+    if (days > 7) {
+      days = 7;
     }
     let history = [];
     history.push({
