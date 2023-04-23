@@ -1,8 +1,7 @@
 // 
 
-export const make_trip = async (start_date, days, start_location, end_location, num_travelers="1", budget="economy", transportation="any",tags="none") => {
+export const make_trip = async (user, start_date, days, start_location, end_location, num_travelers="1", budget="economy", transportation="any",tags="none") => {
   let history = [];
-  const [user, loading] = useAuthState(getAuth());
   history.push({
     role: "user",
     content: `
@@ -19,12 +18,14 @@ export const make_trip = async (start_date, days, start_location, end_location, 
       other tags: ${tags}
     `,
   });
+  console.log(history);
   // get itinerary from OpenAI
-  let response = await fetch("./plan", {
+  let response = await fetch("../../pages/api/plan", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ mem: history }),
   });
+  console.log(response);
   const res = await response.json();
   history.push(res.response);
   if (history) {
@@ -32,7 +33,7 @@ export const make_trip = async (start_date, days, start_location, end_location, 
   }
   let itinerary = plan_parse(res.response.content);
   // get location from OpenAI
-  response = await fetch("./locs", {
+  response = await fetch("../../pages/api/locs", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ plan: res.response.content }),
