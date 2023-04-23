@@ -10,7 +10,7 @@
   padding: 40px 10px;
   gap: 28px;
 
-  width: 678px;
+  width: 100%;
   height: 600px;
 
   background: linear-gradient(156.45deg, rgba(246, 165, 109, 0.9) 0%, rgba(52, 56, 67, 0.9) 101.9%);
@@ -27,7 +27,6 @@
 .dashboard h1 {
 line-height: 45px;
 /* identical to box height */
-
 display: flex;
 align-items: flex-end;
 
@@ -52,8 +51,6 @@ text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .dashboard_wrapper {
-  background: url(../../public/background2.jpg) no-repeat center center fixed;
-
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -76,7 +73,9 @@ text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
   padding: 0px;
   gap: 20px;
 
-  width: 264px;
+  width: auto;
+  max-width: 260px;
+  min-width: 200px;
   height: 150px;
 
   background: linear-gradient(256.1deg, rgba(85, 190, 176, 0.85) 3%, #343843 97.96%);
